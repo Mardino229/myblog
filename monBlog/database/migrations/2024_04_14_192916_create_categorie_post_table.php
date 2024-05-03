@@ -11,7 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::dropIfExists('categories_posts');
+        Schema::create('categorie_post', function (Blueprint $table) {
+            $table->unsignedBigInteger('categorie_id');
+            $table->unsignedBigInteger('post_id');
+            $table->timestamps();
+            $table->foreign('categorie_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
+        });
     }
 
     /**
